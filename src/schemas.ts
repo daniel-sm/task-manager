@@ -6,3 +6,10 @@ export const registerSchema = z.object({
 		password: z.string(),
 	}),
 })
+
+export const loginSchema = z.object({
+	body: z.object({
+		email: z.string().email(),
+		password: z.string(),
+	}),
+})
