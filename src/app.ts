@@ -1,8 +1,9 @@
 import express from 'express'
 import { router } from './routes'
+import { env } from './config/env'
 
 const app = express()
-const port = 3000
+const port = env.PORT
 
 app.use(express.json())
 
