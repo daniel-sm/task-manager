@@ -16,7 +16,10 @@ export function registerController(req: Request, res: Response) {
 
 		const user: User = { email, password }
 		users.push(user)
-		res.json(user)
+
+		res.json({
+			message: 'User created',
+		})
 	} catch (e) {
 		if (e instanceof ZodError) {
 			res.status(400).json({ error: e.errors })
