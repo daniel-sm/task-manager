@@ -1,9 +1,10 @@
-import { ZodError } from 'zod'
+import { hash, verify } from 'argon2'
 import type { Request, Response } from 'express'
-import { loginSchema, registerSchema } from './schemas'
+import { ZodError } from 'zod'
 import { type User, users } from './database/users'
+import { loginSchema, registerSchema } from './schemas'
 
-export function registerController(req: Request, res: Response) {
+export async function registerController(req: Request, res: Response) {
 	try {
 		const { body } = registerSchema.parse({ body: req.body })
 		const { email, password } = body
@@ -14,7 +15,9 @@ export function registerController(req: Request, res: Response) {
 			return
 		}
 
-		const user: User = { email, password }
+		const hashedPassword = await hash(password)
+
+		const user: User = { email, password: hashedPassword }
 		users.push(user)
 
 		res.json({
@@ -29,7 +32,7 @@ export function registerController(req: Request, res: Response) {
 	}
 }
 
-export function loginController(req: Request, res: Response) {
+export async function loginController(req: Request, res: Response) {
 	try {
 		const { body } = loginSchema.parse({ body: req.body })
 		const { email, password } = body
@@ -40,7 +43,10 @@ export function loginController(req: Request, res: Response) {
 			res.status(400).json({ message: 'User not found' })
 			return
 		}
-		if (user.password !== password) {
+
+		const isPasswordCorrect = await verify(user.password, password)
+
+		if (!isPasswordCorrect) {
 			res.json({ message: 'Wrong password' })
 			return
 		}
