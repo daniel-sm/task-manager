@@ -2,6 +2,7 @@ import { hash, verify } from 'argon2'
 import type { Request, Response } from 'express'
 import { ZodError } from 'zod'
 import { type User, users } from './database/users'
+import { generateToken } from './functions/generate-token'
 import { loginSchema, registerSchema } from './schemas'
 
 export async function registerController(req: Request, res: Response) {
@@ -51,7 +52,11 @@ export async function loginController(req: Request, res: Response) {
 			return
 		}
 
-		res.json({ message: 'Logged in' })
+		const token = generateToken(user)
+
+		res.json({
+			token,
+		})
 	} catch (e) {
 		if (e instanceof ZodError) {
 			res.status(400).json({ error: e.errors })
