@@ -1,6 +1,7 @@
 import { hash, verify } from 'argon2'
 import type { Request, Response } from 'express'
 import { ZodError } from 'zod'
+import { prisma } from './database/client'
 import { type User, users } from './database/users'
 import { generateToken } from './functions/generate-token'
 import { loginSchema, registerSchema } from './schemas'
@@ -8,9 +9,12 @@ import { loginSchema, registerSchema } from './schemas'
 export async function registerController(req: Request, res: Response) {
 	try {
 		const { body } = registerSchema.parse({ body: req.body })
-		const { email, password } = body
+		const { name, email, password } = body
 
-		const userAlreadyExists = users.some(user => user.email === email)
+		const userAlreadyExists = await prisma.user.findFirst({
+			where: { email },
+		})
+
 		if (userAlreadyExists) {
 			res.status(400).json({ message: 'User already exists' })
 			return
@@ -18,12 +22,11 @@ export async function registerController(req: Request, res: Response) {
 
 		const hashedPassword = await hash(password)
 
-		const user: User = { email, password: hashedPassword }
-		users.push(user)
-
-		res.json({
-			message: 'User created',
+		const { id } = await prisma.user.create({
+			data: { name, email, password: hashedPassword },
 		})
+
+		res.json({ id })
 	} catch (e) {
 		if (e instanceof ZodError) {
 			res.status(400).json({ error: e.errors })
