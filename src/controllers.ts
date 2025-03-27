@@ -41,7 +41,9 @@ export async function loginController(req: Request, res: Response) {
 		const { body } = loginSchema.parse({ body: req.body })
 		const { email, password } = body
 
-		const user = users.find(user => user.email === email)
+		const user = await prisma.user.findFirst({
+			where: { email },
+		})
 
 		if (!user) {
 			res.status(400).json({ message: 'User not found' })
@@ -57,9 +59,7 @@ export async function loginController(req: Request, res: Response) {
 
 		const token = generateToken(user)
 
-		res.json({
-			token,
-		})
+		res.json({ token })
 	} catch (e) {
 		if (e instanceof ZodError) {
 			res.status(400).json({ error: e.errors })
