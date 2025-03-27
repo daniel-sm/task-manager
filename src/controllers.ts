@@ -2,7 +2,6 @@ import { hash, verify } from 'argon2'
 import type { Request, Response } from 'express'
 import { ZodError } from 'zod'
 import { prisma } from './database/client'
-import { type User, users } from './database/users'
 import { generateToken } from './functions/generate-token'
 import { loginSchema, registerSchema } from './schemas'
 
