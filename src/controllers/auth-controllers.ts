@@ -1,29 +1,23 @@
-import { hash, verify } from 'argon2'
 import type { Request, Response } from 'express'
 import { ZodError } from 'zod'
-import { prisma } from './database/client'
-import { generateToken } from './functions/generate-token'
-import { loginSchema, registerSchema } from './schemas'
+import { loginSchema, registerSchema } from '../schemas/auth-schemas'
+import { loginService, registerService } from '../services/auth-services'
 
 export async function registerController(req: Request, res: Response) {
 	try {
 		const { body } = registerSchema.parse({ body: req.body })
 		const { name, email, password } = body
 
-		const userAlreadyExists = await prisma.user.findFirst({
-			where: { email },
+		const id = await registerService({
+			name,
+			email,
+			password,
 		})
 
-		if (userAlreadyExists) {
+		if (!id) {
 			res.status(400).json({ message: 'User already exists' })
 			return
 		}
-
-		const hashedPassword = await hash(password)
-
-		const { id } = await prisma.user.create({
-			data: { name, email, password: hashedPassword },
-		})
 
 		res.json({ id })
 	} catch (e) {
@@ -40,23 +34,15 @@ export async function loginController(req: Request, res: Response) {
 		const { body } = loginSchema.parse({ body: req.body })
 		const { email, password } = body
 
-		const user = await prisma.user.findFirst({
-			where: { email },
+		const token = await loginService({
+			email,
+			password,
 		})
 
-		if (!user) {
-			res.status(400).json({ message: 'User not found' })
+		if (!token) {
+			res.status(400).json({ message: 'Invalid email or password' })
 			return
 		}
-
-		const isPasswordCorrect = await verify(user.password, password)
-
-		if (!isPasswordCorrect) {
-			res.json({ message: 'Wrong password' })
-			return
-		}
-
-		const token = generateToken(user)
 
 		res.json({ token })
 	} catch (e) {
