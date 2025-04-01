@@ -1,6 +1,7 @@
 import { hash, verify } from 'argon2'
+import { sign } from 'jsonwebtoken'
+import { env } from '../config/env'
 import { prisma } from '../database/client'
-import { generateToken } from '../functions/generate-token'
 
 interface User {
 	name: string
@@ -44,7 +45,7 @@ export async function loginService(login: Login) {
 
 	if (!isPasswordCorrect) return null
 
-	const token = generateToken(user)
+	const token = sign({ email: user.id }, env.SECRET_KEY, { expiresIn: '20m' })
 
 	return token
 }
