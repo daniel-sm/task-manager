@@ -1,4 +1,4 @@
-###
+### AUTH
 
 POST http://localhost:3000/api/auth/register
 Content-Type: application/json
@@ -17,6 +17,16 @@ Content-Type: application/json
 {
   "email": "teste@email.com",
   "password": "123456"
+}
+
+### TASKS
+
+POST http://localhost:3000/api/tasks/create
+Content-Type: application/json
+
+{
+  "title": "Test Task",
+  "userId": 1
 }
 
 ###
