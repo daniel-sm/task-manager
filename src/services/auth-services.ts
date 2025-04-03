@@ -45,7 +45,7 @@ export async function loginService(login: Login) {
 
 	if (!isPasswordCorrect) return null
 
-	const token = sign({ email: user.id }, env.SECRET_KEY, { expiresIn: '20m' })
+	const token = sign({ id: user.id }, env.SECRET_KEY, { expiresIn: '20m' })
 
 	return token
 }
