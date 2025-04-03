@@ -8,7 +8,7 @@ interface Task {
 }
 
 export async function createTaskService(task: Task) {
-	const createdTask = prisma.task.create({
+	const createdTask = await prisma.task.create({
 		data: {
 			title: task.title,
 			description: task.description,
