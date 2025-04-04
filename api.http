@@ -1,4 +1,4 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6MSwiaWF0IjoxNzQzNzAxNzYyLCJleHAiOjE3NDM3MDI5NjJ9.88zTRsbuCWe5k5evfuUTel4qG1QeMPvf2dpzVOFdxro
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQzNzg5ODg4LCJleHAiOjE3NDM3OTEwODh9.QLmSlH2i8B2XQjbK5EsX64fLcBessKDVeo0-SiVYfNc
 
 ### AUTH
 
@@ -31,5 +31,10 @@ Authorization: {{token}}
   "title": "Test Task",
   "userId": 1
 }
+
+###
+
+GET http://localhost:3000/api/tasks/get-all
+Authorization: {{token}}
 
 ###

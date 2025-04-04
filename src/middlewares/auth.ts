@@ -2,8 +2,12 @@ import type { NextFunction, Request, Response } from 'express'
 import { type JwtPayload, verify } from 'jsonwebtoken'
 import { env } from '../config/env'
 
-interface AuthenticatedRequest extends Request {
-	token: string | JwtPayload
+interface DecodedToken {
+	id: string
+}
+
+export interface AuthenticatedRequest extends Request {
+	user: DecodedToken
 }
 
 export function authMiddleware(
@@ -18,8 +22,8 @@ export function authMiddleware(
 			return
 		}
 
-		const decoded = verify(token, env.SECRET_KEY)
-		;(req as AuthenticatedRequest).token = decoded
+		const decoded = verify(token, env.SECRET_KEY) as DecodedToken
+		;(req as AuthenticatedRequest).user = decoded
 
 		next()
 	} catch (e) {

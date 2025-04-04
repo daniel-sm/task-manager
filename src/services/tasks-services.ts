@@ -19,3 +19,13 @@ export async function createTaskService(task: Task) {
 
 	return createdTask
 }
+
+export async function getAllTasksService(id: string) {
+	const tasks = await prisma.task.findMany({
+		where: {
+			userId: Number(id),
+		},
+	})
+
+	return tasks
+}
