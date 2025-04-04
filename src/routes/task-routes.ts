@@ -8,6 +8,6 @@ import { authMiddleware } from '../middlewares/auth'
 const tasksRouter = Router()
 
 tasksRouter.post('/create', createTaskController)
-tasksRouter.get('/get-all', authMiddleware, getAllTasksController)
+tasksRouter.get('/read', authMiddleware, getAllTasksController)
 
 export { tasksRouter }
