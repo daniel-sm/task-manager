@@ -1,4 +1,4 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQzNzg5ODg4LCJleHAiOjE3NDM3OTEwODh9.QLmSlH2i8B2XQjbK5EsX64fLcBessKDVeo0-SiVYfNc
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ0MTM5ODAyLCJleHAiOjE3NDQxNDEwMDJ9.2Ty1ri0AnRyxvAhJkNN_Hz2iPorZAXXNIU104UcxzAI
 
 ### AUTH
 
@@ -34,7 +34,17 @@ Authorization: {{token}}
 
 ###
 
-GET http://localhost:3000/api/tasks/get-all
+GET http://localhost:3000/api/tasks/read
 Authorization: {{token}}
+
+###
+
+PUT http://localhost:3000/api/tasks/update/7
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "title": "Test Task 6"
+}
 
 ###

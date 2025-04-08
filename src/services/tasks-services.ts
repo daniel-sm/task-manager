@@ -1,13 +1,20 @@
 import { prisma } from '../database/client'
 
-interface Task {
+interface CreateTask {
 	title: string
 	description?: string
 	dueDate?: Date
 	userId: number
 }
 
-export async function createTaskService(task: Task) {
+interface UpdateTask {
+	id: number
+	title?: string
+	description?: string
+	dueDate?: Date
+}
+
+export async function createTaskService(task: CreateTask) {
 	const createdTask = await prisma.task.create({
 		data: {
 			title: task.title,
@@ -20,12 +27,37 @@ export async function createTaskService(task: Task) {
 	return createdTask
 }
 
-export async function getAllTasksService(id: string) {
+export async function getAllTasksService(userId: string) {
 	const tasks = await prisma.task.findMany({
 		where: {
-			userId: Number(id),
+			userId: Number(userId),
 		},
 	})
 
 	return tasks
+}
+
+export async function updateTaskService(task: UpdateTask) {
+	const data: {
+		title?: string
+		description?: string
+		dueDate?: Date
+	} = {}
+
+	if (task.title) {
+		data.title = task.title
+	}
+	if (task.description) {
+		data.description = task.description
+	}
+	if (task.dueDate) {
+		data.dueDate = task.dueDate
+	}
+
+	const updatedTask = await prisma.task.update({
+		where: { id: task.id },
+		data,
+	})
+
+	return updatedTask
 }

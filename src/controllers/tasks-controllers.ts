@@ -1,10 +1,11 @@
 import type { Request, Response } from 'express'
 import { ZodError } from 'zod'
 import type { AuthenticatedRequest } from '../middlewares/auth'
-import { createSchema } from '../schemas/task-schemas'
+import { createSchema, updateSchema } from '../schemas/task-schemas'
 import {
 	createTaskService,
 	getAllTasksService,
+	updateTaskService,
 } from '../services/tasks-services'
 
 export async function createTaskController(req: Request, res: Response) {
@@ -37,6 +38,32 @@ export async function getAllTasksController(req: Request, res: Response) {
 
 		res.json({ tasks })
 	} catch (e) {
+		res.status(500).json({ message: 'Internal server error' })
+	}
+}
+
+export async function updateTaskController(req: Request, res: Response) {
+	try {
+		const { params, body } = updateSchema.parse({
+			params: req.params,
+			body: req.body,
+		})
+		const { taskId } = params
+		const { title, description, dueDate } = body
+
+		const updatedTask = await updateTaskService({
+			id: taskId,
+			title,
+			description,
+			dueDate,
+		})
+
+		res.json({ task: updatedTask })
+	} catch (e) {
+		if (e instanceof ZodError) {
+			res.status(400).json({ error: e.errors })
+			return
+		}
 		res.status(500).json({ message: 'Internal server error' })
 	}
 }
