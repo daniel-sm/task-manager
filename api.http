@@ -1,4 +1,4 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ0MTM5ODAyLCJleHAiOjE3NDQxNDEwMDJ9.2Ty1ri0AnRyxvAhJkNN_Hz2iPorZAXXNIU104UcxzAI
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ0MTQyMjUzLCJleHAiOjE3NDQxNDM0NTN9.FosZvyczK8IqKHNtT123tUDOZN5QUbOE3_vlzwTHjsk
 
 ### AUTH
 
@@ -28,7 +28,7 @@ Content-Type: application/json
 Authorization: {{token}}
 
 {
-  "title": "Test Task",
+  "title": "New Task",
   "userId": 1
 }
 
@@ -39,12 +39,17 @@ Authorization: {{token}}
 
 ###
 
-PUT http://localhost:3000/api/tasks/update/7
+PUT http://localhost:3000/api/tasks/update/1
 Content-Type: application/json
 Authorization: {{token}}
 
 {
-  "title": "Test Task 6"
+  "title": "Test Task"
 }
+
+###
+
+DELETE http://localhost:3000/api/tasks/delete/8
+Authorization: {{token}}
 
 ###

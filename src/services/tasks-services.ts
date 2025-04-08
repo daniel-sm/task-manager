@@ -61,3 +61,11 @@ export async function updateTaskService(task: UpdateTask) {
 
 	return updatedTask
 }
+
+export async function deleteTaskService(taskId: number) {
+	const deletedTask = await prisma.task.delete({
+		where: { id: taskId },
+	})
+
+	return deletedTask
+}

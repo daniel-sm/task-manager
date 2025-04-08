@@ -10,9 +10,6 @@ export const createSchema = z.object({
 })
 
 export const updateSchema = z.object({
-	params: z.object({
-		taskId: z.coerce.number(),
-	}),
 	body: z
 		.object({
 			title: z.string().optional(),
@@ -21,4 +18,10 @@ export const updateSchema = z.object({
 		})
 		.partial()
 		.refine(data => Object.keys(data).length > 0, 'Empty object'),
+})
+
+export const paramsSchema = z.object({
+	params: z.object({
+		taskId: z.coerce.number(),
+	}),
 })

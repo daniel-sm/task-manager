@@ -1,9 +1,14 @@
 import type { Request, Response } from 'express'
 import { ZodError } from 'zod'
 import type { AuthenticatedRequest } from '../middlewares/auth'
-import { createSchema, updateSchema } from '../schemas/task-schemas'
+import {
+	createSchema,
+	paramsSchema,
+	updateSchema,
+} from '../schemas/task-schemas'
 import {
 	createTaskService,
+	deleteTaskService,
 	getAllTasksService,
 	updateTaskService,
 } from '../services/tasks-services'
@@ -44,8 +49,10 @@ export async function getAllTasksController(req: Request, res: Response) {
 
 export async function updateTaskController(req: Request, res: Response) {
 	try {
-		const { params, body } = updateSchema.parse({
+		const { params } = paramsSchema.parse({
 			params: req.params,
+		})
+		const { body } = updateSchema.parse({
 			body: req.body,
 		})
 		const { taskId } = params
@@ -59,6 +66,25 @@ export async function updateTaskController(req: Request, res: Response) {
 		})
 
 		res.json({ task: updatedTask })
+	} catch (e) {
+		if (e instanceof ZodError) {
+			res.status(400).json({ error: e.errors })
+			return
+		}
+		res.status(500).json({ message: 'Internal server error' })
+	}
+}
+
+export async function deleteTaskController(req: Request, res: Response) {
+	try {
+		const { params } = paramsSchema.parse({
+			params: req.params,
+		})
+		const { taskId } = params
+
+		const deletedTask = await deleteTaskService(taskId)
+
+		res.json({ task: deletedTask })
 	} catch (e) {
 		if (e instanceof ZodError) {
 			res.status(400).json({ error: e.errors })
