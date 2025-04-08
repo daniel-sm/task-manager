@@ -10,8 +10,8 @@ import { authMiddleware } from '../middlewares/auth'
 const tasksRouter = Router()
 
 tasksRouter.post('/create', createTaskController)
-tasksRouter.get('/read', authMiddleware, getAllTasksController)
-tasksRouter.put('/update/:taskId', authMiddleware, updateTaskController)
-tasksRouter.delete('/delete/:taskId', authMiddleware, deleteTaskController)
+tasksRouter.get('/read', getAllTasksController)
+tasksRouter.put('/update/:taskId', updateTaskController)
+tasksRouter.delete('/delete/:taskId', deleteTaskController)
 
 export { tasksRouter }
