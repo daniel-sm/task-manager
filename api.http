@@ -1,4 +1,4 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ0Mjk0OTEyLCJleHAiOjE3NDQyOTYxMTJ9.VCXfhTA8rFalyh6J4CkfzCu4reZubm_qa9gpp_--TuI
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ0Mjk2Mzk2LCJleHAiOjE3NDQyOTc1OTZ9.iTubphLldDcN2wy-NsZRmCi4dw5y5kBkIWVFpnEv0DA
 
 ### REGISTER
 
@@ -55,6 +55,11 @@ Authorization: {{token}}
 ### GET USERS
 
 GET http://localhost:3000/api/users/read
+Authorization: {{token}}
+
+### GET USER BY ID
+
+GET http://localhost:3000/api/users/read/1
 Authorization: {{token}}
 
 ### DELETE USER

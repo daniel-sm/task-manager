@@ -6,6 +6,16 @@ export async function getUsersService() {
 	return users
 }
 
+export async function getUserByIdService(userId: number) {
+	const user = await prisma.user.findUnique({
+		where: {
+			id: userId,
+		},
+	})
+
+	return user
+}
+
 export async function deleteUserService(userId: number) {
 	const deletedUser = await prisma.user.delete({
 		where: {
