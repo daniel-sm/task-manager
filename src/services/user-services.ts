@@ -5,3 +5,13 @@ export async function getUsersService() {
 
 	return users
 }
+
+export async function deleteUserService(userId: number) {
+	const deletedUser = await prisma.user.delete({
+		where: {
+			id: userId,
+		},
+	})
+
+	return deletedUser
+}

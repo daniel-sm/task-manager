@@ -1,6 +1,6 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ0MjkxMjg3LCJleHAiOjE3NDQyOTI0ODd9.sfJmG3cNNizxd9DuyPAt9G9A8yQUBsFHtypOznOHpe0
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ0Mjk0OTEyLCJleHAiOjE3NDQyOTYxMTJ9.VCXfhTA8rFalyh6J4CkfzCu4reZubm_qa9gpp_--TuI
 
-### AUTH
+### REGISTER
 
 POST http://localhost:3000/api/auth/register
 Content-Type: application/json
@@ -11,7 +11,7 @@ Content-Type: application/json
   "password": "123456"
 }
 
-###
+### LOGIN
 
 POST http://localhost:3000/api/auth/login
 Content-Type: application/json
@@ -21,7 +21,7 @@ Content-Type: application/json
   "password": "123456"
 }
 
-### TASKS
+### CREATE TASK
 
 POST http://localhost:3000/api/tasks/create
 Content-Type: application/json
@@ -32,12 +32,12 @@ Authorization: {{token}}
   "userId": 1
 }
 
-###
+### GET TASKS
 
 GET http://localhost:3000/api/tasks/read
 Authorization: {{token}}
 
-###
+### UDPATE TASK
 
 PUT http://localhost:3000/api/tasks/update/1
 Content-Type: application/json
@@ -47,14 +47,17 @@ Authorization: {{token}}
   "title": "Test Task"
 }
 
-###
+### DELETE TASK
 
 DELETE http://localhost:3000/api/tasks/delete/8
 Authorization: {{token}}
 
-### USERS
+### GET USERS
 
 GET http://localhost:3000/api/users/read
 Authorization: {{token}}
 
-###
+### DELETE USER
+
+DELETE http://localhost:3000/api/users/delete/2
+Authorization: {{token}}
