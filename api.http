@@ -1,4 +1,4 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ0MTQyMjUzLCJleHAiOjE3NDQxNDM0NTN9.FosZvyczK8IqKHNtT123tUDOZN5QUbOE3_vlzwTHjsk
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ0MjkxMjg3LCJleHAiOjE3NDQyOTI0ODd9.sfJmG3cNNizxd9DuyPAt9G9A8yQUBsFHtypOznOHpe0
 
 ### AUTH
 
@@ -50,6 +50,11 @@ Authorization: {{token}}
 ###
 
 DELETE http://localhost:3000/api/tasks/delete/8
+Authorization: {{token}}
+
+### USERS
+
+GET http://localhost:3000/api/users/read
 Authorization: {{token}}
 
 ###
