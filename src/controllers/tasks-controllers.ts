@@ -35,7 +35,7 @@ export async function createTaskController(req: Request, res: Response) {
 	}
 }
 
-export async function getAllTasksController(req: Request, res: Response) {
+export async function getTasksController(req: Request, res: Response) {
 	const { id } = (req as AuthenticatedRequest).user
 
 	try {

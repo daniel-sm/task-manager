@@ -2,15 +2,14 @@ import { Router } from 'express'
 import {
 	createTaskController,
 	deleteTaskController,
-	getAllTasksController,
+	getTasksController,
 	updateTaskController,
 } from '../controllers/tasks-controllers'
-import { authMiddleware } from '../middlewares/auth'
 
 const tasksRouter = Router()
 
 tasksRouter.post('/create', createTaskController)
-tasksRouter.get('/read', getAllTasksController)
+tasksRouter.get('/read', getTasksController)
 tasksRouter.put('/update/:taskId', updateTaskController)
 tasksRouter.delete('/delete/:taskId', deleteTaskController)
 
