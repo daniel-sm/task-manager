@@ -4,48 +4,48 @@ import { env } from '../config/env'
 import { prisma } from '../database/client'
 
 interface User {
-	name: string
-	email: string
-	password: string
+  name: string
+  email: string
+  password: string
 }
 
 interface Login {
-	email: string
-	password: string
+  email: string
+  password: string
 }
 
 export async function registerService(user: User) {
-	const userAlreadyExists = await prisma.user.findFirst({
-		where: { email: user.email },
-	})
+  const userAlreadyExists = await prisma.user.findFirst({
+    where: { email: user.email },
+  })
 
-	if (userAlreadyExists) return null
+  if (userAlreadyExists) return null
 
-	const hashedPassword = await hash(user.password)
+  const hashedPassword = await hash(user.password)
 
-	const { id } = await prisma.user.create({
-		data: {
-			name: user.name,
-			email: user.email,
-			password: hashedPassword,
-		},
-	})
+  const { id } = await prisma.user.create({
+    data: {
+      name: user.name,
+      email: user.email,
+      password: hashedPassword,
+    },
+  })
 
-	return id
+  return id
 }
 
 export async function loginService(login: Login) {
-	const user = await prisma.user.findFirst({
-		where: { email: login.email },
-	})
+  const user = await prisma.user.findFirst({
+    where: { email: login.email },
+  })
 
-	if (!user) return null
+  if (!user) return null
 
-	const isPasswordCorrect = await verify(user.password, login.password)
+  const isPasswordCorrect = await verify(user.password, login.password)
 
-	if (!isPasswordCorrect) return null
+  if (!isPasswordCorrect) return null
 
-	const token = sign({ id: user.id }, env.SECRET_KEY, { expiresIn: '20m' })
+  const token = sign({ id: user.id }, env.SECRET_KEY, { expiresIn: '20m' })
 
-	return token
+  return token
 }

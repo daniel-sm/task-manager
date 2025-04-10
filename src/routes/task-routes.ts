@@ -1,9 +1,9 @@
 import { Router } from 'express'
 import {
-	createTaskController,
-	deleteTaskController,
-	getTasksController,
-	updateTaskController,
+  createTaskController,
+  deleteTaskController,
+  getTasksController,
+  updateTaskController,
 } from '../controllers/tasks-controllers'
 
 const tasksRouter = Router()

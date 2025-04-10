@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import {
-	deleteUserController,
-	getUserByIdController,
-	getUsersController,
+  deleteUserController,
+  getUserByIdController,
+  getUsersController,
 } from '../controllers/user-controllers'
 
 const userRouter = Router()

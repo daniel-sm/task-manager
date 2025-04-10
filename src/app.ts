@@ -15,5 +15,5 @@ app.use('/api/tasks', authMiddleware, tasksRouter)
 app.use('/api/users', authMiddleware, userRouter)
 
 app.listen(port, () => {
-	console.log(`Server is running on port ${port}`)
+  console.log(`Server is running on port ${port}`)
 })
