@@ -5,3 +5,9 @@ export const userParamsSchema = z.object({
     userId: z.coerce.number(),
   }),
 })
+
+export const userUpdateSchema = z.object({
+  body: z.object({
+    name: z.string(),
+  }),
+})

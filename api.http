@@ -1,4 +1,4 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ0Mjk2Mzk2LCJleHAiOjE3NDQyOTc1OTZ9.iTubphLldDcN2wy-NsZRmCi4dw5y5kBkIWVFpnEv0DA
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ0ODk1NDM1LCJleHAiOjE3NDQ4OTY2MzV9.ApH9V9rW0ozgEXsZIqFUpzySKq1nMsCFekH3jwUURyI
 
 ### REGISTER
 
@@ -37,7 +37,7 @@ Authorization: {{token}}
 GET http://localhost:3000/api/tasks/read
 Authorization: {{token}}
 
-### UDPATE TASK
+### UPDATE TASK
 
 PUT http://localhost:3000/api/tasks/update/1
 Content-Type: application/json
@@ -61,6 +61,16 @@ Authorization: {{token}}
 
 GET http://localhost:3000/api/users/read/1
 Authorization: {{token}}
+
+### UPDATE USER 
+
+PUT http://localhost:3000/api/users/update/1
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "name": "teste"
+}
 
 ### DELETE USER
 
