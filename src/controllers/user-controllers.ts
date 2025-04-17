@@ -1,10 +1,15 @@
 import type { Request, Response } from 'express'
 import { ZodError } from 'zod'
-import { userParamsSchema, userUpdateSchema } from '../schemas/user-schemas'
+import {
+  updatePasswordSchema,
+  userParamsSchema,
+  userUpdateSchema,
+} from '../schemas/user-schemas'
 import {
   deleteUserService,
   getUserByIdService,
   getUsersService,
+  updatePasswordService,
   updateUserService,
 } from '../services/user-services'
 
@@ -85,5 +90,32 @@ export async function deleteUserController(req: Request, res: Response) {
       return
     }
     res.status(500).json({ message: 'Internal server error' })
+  }
+}
+
+export async function updatePasswordController(req: Request, res: Response) {
+  try {
+    const { params } = userParamsSchema.parse({
+      params: req.params,
+    })
+    const { body } = updatePasswordSchema.parse({
+      body: req.body,
+    })
+    const { password } = body
+    const { userId } = params
+
+    const updatedUser = await updatePasswordService(userId, password)
+
+    res.json({
+      user: updatedUser,
+    })
+  } catch (e) {
+    if (e instanceof ZodError) {
+      if (e instanceof ZodError) {
+        res.status(400).json({ error: e.errors })
+        return
+      }
+      res.status(500).json({ message: 'Internal server error' })
+    }
   }
 }

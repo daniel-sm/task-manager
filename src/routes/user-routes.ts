@@ -3,6 +3,7 @@ import {
   deleteUserController,
   getUserByIdController,
   getUsersController,
+  updatePasswordController,
   updateUserController,
 } from '../controllers/user-controllers'
 
@@ -12,5 +13,6 @@ userRouter.get('/read', getUsersController)
 userRouter.get('/read/:userId', getUserByIdController)
 userRouter.put('/update/:userId', updateUserController)
 userRouter.delete('/delete/:userId', deleteUserController)
+userRouter.put('/update/password/:userId', updatePasswordController)
 
 export { userRouter }

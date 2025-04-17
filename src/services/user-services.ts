@@ -1,3 +1,4 @@
+import { hash } from 'argon2'
 import { prisma } from '../database/client'
 
 interface UpdateUser {
@@ -40,4 +41,17 @@ export async function deleteUserService(userId: number) {
   })
 
   return deletedUser
+}
+
+export async function updatePasswordService(userId: number, password: string) {
+  const hashedPassword = await hash(password)
+
+  const updatedUser = await prisma.user.update({
+    where: { id: userId },
+    data: {
+      password: hashedPassword,
+    },
+  })
+
+  return updatedUser
 }

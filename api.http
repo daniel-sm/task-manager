@@ -1,4 +1,4 @@
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ0ODk1NDM1LCJleHAiOjE3NDQ4OTY2MzV9.ApH9V9rW0ozgEXsZIqFUpzySKq1nMsCFekH3jwUURyI
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzQ0OTAxNDc5LCJleHAiOjE3NDQ5MDI2Nzl9.ew711TJh7o0o5ZdQAyJ9heb0-yVBkY60B_WWWCZnRXA
 
 ### REGISTER
 
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 {
   "email": "teste@email.com",
-  "password": "123456"
+  "password": "12345"
 }
 
 ### CREATE TASK
@@ -76,3 +76,13 @@ Authorization: {{token}}
 
 DELETE http://localhost:3000/api/users/delete/2
 Authorization: {{token}}
+
+### UPDATE USER PASSWORD
+
+PUT http://localhost:3000/api/users/update/password/1
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "password": "12345"
+}

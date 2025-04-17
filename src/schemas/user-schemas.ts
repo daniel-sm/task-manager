@@ -11,3 +11,9 @@ export const userUpdateSchema = z.object({
     name: z.string(),
   }),
 })
+
+export const updatePasswordSchema = z.object({
+  body: z.object({
+    password: z.string(),
+  }),
+})
